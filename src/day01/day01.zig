@@ -2,7 +2,7 @@ const std = @import("std");
 const print = std.debug.print;
 const input = @embedFile("./input");
 
-pub fn part1() !u32 {
+fn part1() !u32 {
     var buffer = std.mem.split(u8, input, "\n");
     var max_kcal: u32 = 0;
     var curr_kcal: u32 = 0;
@@ -21,7 +21,7 @@ pub fn part1() !u32 {
     return max_kcal;
 }
 
-pub fn part2() !u32 {
+fn part2() !u32 {
     var buffer = std.mem.split(u8, input, "\n");
     var three_max = [3]u32{ 0, 0, 0 };
     var curr_kcal: u32 = 0;
