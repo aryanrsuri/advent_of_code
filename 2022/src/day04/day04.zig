@@ -3,6 +3,7 @@ var gpa_init = std.heap.GeneralPurposeAllocator(.{}){};
 const gpa = gpa_init.allocator();
 const file = @embedFile("./input");
 const print = std.debug.print;
+
 const assigment = struct {
     low: u8,
     high: u8,
