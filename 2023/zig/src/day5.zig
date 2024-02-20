@@ -1,30 +1,48 @@
 const std = @import("std");
 const mem = std.mem;
 const stdout = std.io.getStdOut().writer();
+const raw = @embedFile("day5.test.input");
 
-pub fn part1(fp: []const u8) !u8 {
-    const raw = @embedFile(fp);
+pub const Seed = u64;
+pub const Map = struct {
+    source: []const u8,
+    destination: []const u8,
+    drange: Seed,
+    srange: Seed,
+    rlen: usize,
+};
+
+pub fn part1() !void {
     var buffer = std.mem.tokenizeScalar(u8, raw, '\n');
-
-    while (buffer.next()) |line| {
-        stdout.print("{s}\n", .{line});
+    // var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    // const alloc = gpa.allocator();
+    // var seeds = std.ArrayList(Seed).init(alloc);
+    var sds = std.mem.tokenizeScalar(u8, buffer.next().?, ' ');
+    _ = sds.next();
+    var seeds: [100]Seed = undefined;
+    var i: usize = 0;
+    while (sds.next()) |line| : (i += 1) {
+        const s: Seed = try std.fmt.parseInt(u64, line, 10);
+        seeds[i] = s;
     }
-    return 0;
+    while (buffer.next()) |line| {
+        _ = line;
+
+    }
 }
 
-pub fn part2(fp: []const u8) !u8 {
-    const raw = @embedFile(fp);
+pub fn part2() !u8 {
     var buffer = std.mem.tokenizeScalar(u8, raw, '\n');
 
     while (buffer.next()) |line| {
-        stdout.print("{s}\n", .{line});
+        try stdout.print("{s}\n", .{line});
     }
     return 0;
 }
 
 test "part1" {
-    stdout.print("result :: {any}\n", .{try part1("day5.input")});
+    try part1();
 }
-test "part2" {
-    stdout.print("result :: {any}\n", .{try part2("day5.input")});
-}
+// test "part2" {
+// stdout.print("result :: {any}\n", .{try part2()});
+// }
